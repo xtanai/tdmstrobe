@@ -161,7 +161,7 @@ coming soon.
 * Keep **exposure short** (strobe pulses inside the camera exposure) and the **average power low**.
 * Use **850 nm band-pass filters** on cameras to reduce required LED power.
 
-**Placement strategies**
+**Solution Strategies:**
 
 * **Option A – Side/Rear placement (recommended):**
   Mount stereo pairs **left/right and slightly behind** the workspace, aimed toward the monitor/work area. Add **one or two top stereo pairs** for occlusion-free coverage. This directs IR **away from eyes** while keeping the scene well lit. Future refinement: integrate cameras cleanly by recess-mounting one pair near the center of the table and another near the back edge for a slimmer, more robust design.
