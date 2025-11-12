@@ -154,12 +154,6 @@ coming soon.
 
 ---
 
-## Disclaimer
-
-Prototype hardware. Use at your own risk. Ensure eye‑safety and proper thermal design in all setups.
-
----
-
 ## Safety
 
 * **850 nm IR is invisible and hazardous**—follow **IEC 62471** guidelines.
@@ -180,3 +174,7 @@ Prototype hardware. Use at your own risk. Ensure eye‑safety and proper thermal
 
 * **Option D – Side-shield eyewear (“horse blinkers” idea):**
   Provide **IR-blocking safety glasses with side shields** for operators/visitors when emitters face forward. Choose eyewear rated for **near-IR attenuation** and ensure a snug fit to block off-axis light.
+
+### Disclaimer
+
+Prototype hardware. Use at your own risk. Ensure eye‑safety and proper thermal design in all setups.
