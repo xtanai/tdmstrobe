@@ -142,6 +142,24 @@ TDMStrobe ─► LED Drivers (per string) ─► IR LED strings (Throw / Fill pe
 
 ---
 
+## Roadmap
+
+coming soon. 
+
+---
+
+## License
+
+**Apache‑2.0** (code, firmware, docs). Hardware files: to be added; may use CERN‑OHL‑S.
+
+---
+
+## Disclaimer
+
+Prototype hardware. Use at your own risk. Ensure eye‑safety and proper thermal design in all setups.
+
+---
+
 ## Safety
 
 * **850 nm IR is invisible and hazardous**—follow **IEC 62471** guidelines.
@@ -162,21 +180,3 @@ TDMStrobe ─► LED Drivers (per string) ─► IR LED strings (Throw / Fill pe
 
 * **Option D – Side-shield eyewear (“horse blinkers” idea):**
   Provide **IR-blocking safety glasses with side shields** for operators/visitors when emitters face forward. Choose eyewear rated for **near-IR attenuation** and ensure a snug fit to block off-axis light.
-
----
-
-## Roadmap
-
-coming soon. 
-
----
-
-## License
-
-**Apache‑2.0** (code, firmware, docs). Hardware files: to be added; may use CERN‑OHL‑S.
-
----
-
-## Disclaimer
-
-Prototype hardware. Use at your own risk. Ensure eye‑safety and proper thermal design in all setups.
