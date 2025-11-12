@@ -157,7 +157,11 @@ TDMStrobe ─► LED Drivers (per string) ─► IR LED strings (Throw / Fill pe
 * **Option B – Front placement with HMD:**
   If all stereo pairs must face forward, operate with a **closed VR headset** (no see-through optics) so eyes are **occluded**. Still use baffles and interlocks to protect bystanders without headsets.
 
-*(AR/see-through glasses do **not** count as eye protection.)*
+* **Option C – IR-filtering safety glasses:**
+  Use **visible-light-transmitting eyewear** that strongly attenuates **near-IR (≈ 780–950 nm)** (e.g., specified optical density at **850 nm**), so users retain normal vision while IR exposure is reduced.
+
+* **Option D – Side-shield eyewear (“horse blinkers” idea):**
+  Provide **IR-blocking safety glasses with side shields** for operators/visitors when emitters face forward. Choose eyewear rated for **near-IR attenuation** and ensure a snug fit to block off-axis light.
 
 ---
 
