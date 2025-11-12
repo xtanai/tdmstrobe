@@ -175,6 +175,11 @@ coming soon.
 * **Option D – Side-shield eyewear (“horse blinkers” idea):**
   Provide **IR-blocking safety glasses with side shields** for operators/visitors when emitters face forward. Choose eyewear rated for **near-IR attenuation** and ensure a snug fit to block off-axis light.
 
+**Note:** 
+
+For high-precision CAD/DCC tracking, **multi-view NIR with global-shutter cameras and synchronized strobes** typically outperforms inside-out approaches (e.g., consumer hand-tracking like **Leap Motion** or **ToF** controllers) in **accuracy, drift resistance, and latency**—making it a uniquely capable solution compared with devices such as the **Meta Quest 3** and similar systems.
+
+
 ### Disclaimer
 
 Prototype hardware. Use at your own risk. Ensure eye‑safety and proper thermal design in all setups.
