@@ -144,8 +144,20 @@ TDMStrobe ─► LED Drivers (per string) ─► IR LED strings (Throw / Fill pe
 
 ## Safety
 
-* 850 nm IR is **invisible and hazardous** at close range. Use shields and comply with **IEC 62471**. Never look into emitters. Provide interlocks where possible.
-* When using **continuous dimming**, verify that **maximum average power** stays within LED thermal limits (derate with temperature).
+* **850 nm IR is invisible and hazardous**—follow **IEC 62471** guidelines.
+* **Never look into emitters.** Use black matte **baffles/shields**, aim emitters away from faces, and add **interlocks** (LEDs off on loss of sync / open cover / presence detection).
+* Keep **exposure short** (strobe pulses inside the camera exposure) and the **average power low**.
+* Use **850 nm band-pass filters** on cameras to reduce required LED power.
+
+**Placement strategies**
+
+* **Option A – Side/Rear placement (recommended):**
+  Mount stereo pairs **left/right and slightly behind** the workspace, aimed toward the monitor/work area. Add **one or two top stereo pairs** for occlusion-free coverage. This directs IR **away from eyes** while keeping the scene well lit. Future refinement: integrate cameras cleanly by recess-mounting one pair near the center of the table and another near the back edge for a slimmer, more robust design.
+
+* **Option B – Front placement with HMD:**
+  If all stereo pairs must face forward, operate with a **closed VR headset** (no see-through optics) so eyes are **occluded**. Still use baffles and interlocks to protect bystanders without headsets.
+
+*(AR/see-through glasses do **not** count as eye protection.)*
 
 ---
 
