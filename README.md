@@ -1,7 +1,12 @@
 # TDMStrobe
 
-**Time-Division-Multiplexed (TDM) IR strobe & trigger hub** for multi-camera hand/gesture capture. Built for **2–4 stereo rigs** (4–8 mono cams) with small, staggered baselines to boost precision and occlusion robustness. Supports **single-strobe** and **double-strobe** per frame (e.g., **Throw 60°** + **Fill 90°**). The current prototype uses **120° emitters** for rapid bring-up; production targets **60°/90° optics**. The IR illumination is **invisible (850 nm)** and camera-safe when operated within eye-safety limits.
+**Time-Division-Multiplexed (TDM) IR strobe & trigger hub** for multi-camera hand/gesture capture. Designed for **2–4 stereo rigs** (i.e., **4–8 mono cams**) with small, staggered baselines to improve **precision** and **occlusion robustness**.
 
+* **Per-frame strobing:** supports **single-strobe** and **double-strobe** (e.g., **Throw 60°** + **Fill 90°**).
+* **Optics:** prototype uses **120° emitters** for fast bring-up; production targets **60°/90°**.
+* **Spectrum:** **850 nm** IR illumination (invisible) and **camera-safe** when operated within established eye-safety limits.
+
+> **Note:** Suitable off-the-shelf strobe hubs with the required MCU timing/control **do not exist**; this must be **custom-built**.
 
 > **Status:** early prototype (electronics/firmware WIP). API and connectors may change.
 
