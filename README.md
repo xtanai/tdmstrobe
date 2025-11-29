@@ -25,18 +25,18 @@
 ## System Overview
 
 ```
-PC (Host; LAN) ──► Pi 5 (motion host) ──► UART ──► TDMStrobe (RP2040 / Pico)
+PC (Host; LAN) ──► Pi 5 (motion host) ──► UART ──► TDMStrobe (RP2040 / Pico) as Master
                                          │
-                                         ├─► TRIG A/B (2‑wire) ─► Stereo #1 (L+R)
-                                         ├─► TRIG A/B          ─► Stereo #2 (L+R)
-                                         ├─► TRIG A/B          ─► Stereo #3 (L+R)
-                                         └─► TRIG A/B          ─► Stereo #4 (L+R)
+                                         ├─► TRIG A/B (2‑wire) ─► Stereo #1 (L+R) as Slave
+                                         ├─► TRIG A/B          ─► Stereo #2 (L+R) as Slave
+                                         ├─► TRIG A/B          ─► Stereo #3 (L+R) as Slave
+                                         └─► TRIG A/B          ─► Stereo #4 (L+R) as Slave
 
 TDMStrobe ─► LED Drivers (per string) ─► IR LED strings (Throw / Fill per camera)
                                  └─► **Dimmer** (global + per‑channel)
 ```
 
-* **Up to 4 stereo rigs** (expandable hub style). With 3 or more rigs, up to **8 trigger ports** are available from a “mother” stereo pair fan‑out.
+* **Up to 4 stereo rigs** (expandable hub style). With 3 or more rigs, up to **8 trigger ports** are available from a “Master” stereo pair fan‑out.
 * **UART control** from **Pi 5** (which later exposes a LAN control page/API). Centralized settings for the **whole multi‑stereo setup**; TDMStrobe focuses on lighting/trigger only (including **continuous dimming**).
 
 ---
