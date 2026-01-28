@@ -59,10 +59,9 @@ PC (Host) ── Ethernet/RJ45 ─► EdgeTrack4 ──► UART ──► TDMStr
 
 ## Bill of Materials (BOM)
 
-**Compute & Control**
+**MCU**
 
 * 1× **Raspberry Pi Pico / RP2040** (controller for TDMStrobe)
-* 1× **Raspberry Pi 5** (host; runs capture/triangulation; talks UART→Pico; LAN to PC)
 
 **LED Power Stage (choose one family per string)**
 
