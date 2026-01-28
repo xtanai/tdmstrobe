@@ -30,15 +30,15 @@ PC (Host) ── Ethernet/RJ45 ─► EdgeTrack2 ──► UART ──► TDMStr
 PC (Host) ── Ethernet/RJ45 ─► EdgeTrack3 ──► UART ──► TDMStrobe3 (RP2040) as Slave
 PC (Host) ── Ethernet/RJ45 ─► EdgeTrack4 ──► UART ──► TDMStrobe4 (RP2040) as Slave
 
-           TDMStrobe1     TDMStrobe2     TDMStrobe3     TDMStrobe4
-               ↓              ↓               ↓             ↓
-             UART           UART             UART          UART
-               ↓              ↓               ↓             ↓
-            SP3485         SP3485           SP3485        SP3485
-               ↓              ↓               ↓             ↓
-             RS485          RS485           RS485         RS485  
-               ↓              ↓               ↓             ↓
-12ΩΩ   →    2xRJ45   ↔     2xRJ45    ↔    2xRJ45    ↔    2xRJ45    ←    120Ω
+           TDMStrobe1      TDMStrobe2      TDMStrobe3      TDMStrobe4
+               ↓               ↓               ↓               ↓
+             UART            UART            UART            UART
+               ↓               ↓               ↓               ↓
+            SP3485          SP3485          SP3485          SP3485
+               ↓               ↓               ↓               ↓
+             RS485           RS485           RS485           RS485  
+               ↓               ↓               ↓               ↓
+12ΩΩ    →    2xRJ45    ↔     2xRJ45    ↔     2xRJ45    ↔     2xRJ45    ←    120Ω
 ```
 
 * **Up to 4 stereo rigs** (expandable hub style). With 3 or more rigs, up to **8 trigger ports** are available from a “Master” stereo pair fan‑out.
