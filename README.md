@@ -22,7 +22,7 @@
 
 ---
 
-## System Overview (Example 4 Stereokamera)
+## System Overview (Example: 4 Stereo Rigs)
 
 ```
 PC (Host) ── Ethernet/RJ45 ─► EdgeTrack1 ──► UART ──► TDMStrobe1 (RP2040) as Master
@@ -38,7 +38,7 @@ PC (Host) ── Ethernet/RJ45 ─► EdgeTrack4 ──► UART ──► TDMStr
                ↓              ↓               ↓             ↓
              RS485          RS485           RS485         RS485  
                ↓              ↓               ↓             ↓
-12ΩΩ   ↔    2xRJ45   ↔     2xRJ45    ↔    2xRJ45    ↔    2xRJ45    ↔    120Ω
+12ΩΩ   →    2xRJ45   ↔     2xRJ45    ↔    2xRJ45    ↔    2xRJ45    ←    120Ω
 ```
 
 * **Up to 4 stereo rigs** (expandable hub style). With 3 or more rigs, up to **8 trigger ports** are available from a “Master” stereo pair fan‑out.
@@ -141,17 +141,6 @@ PC (Host) ── Ethernet/RJ45 ─► EdgeTrack4 ──► UART ──► TDMStr
 
 ---
 
-## Quick Start
-
-1. Wire **24 V PSU** → drivers → LED series strings; add **fuse per string**
-2. Add **buck 24→5.1 V** for Pi 5; power Pico from Pi or from 5 V rail
-3. Connect TRIG A/B to each stereo rig (lockable connectors)
-4. Flash Pico with firmware; open UART console; set **rate/exposure/pulses**
-5. **Set dimmer**: start with **Global 80%** (continuous dim), then tune **per‑channel** to equalize histograms
-6. Verify with histogram (target **70–80% FS**, no clipping); adjust **pulse widths** and/or **dimmer**
-
----
-
 ## Roadmap
 
 coming soon. 
@@ -184,10 +173,6 @@ coming soon.
 
 * **Option D – Side-shield eyewear (“horse blinkers” idea):**
   Provide **IR-blocking safety glasses with side shields** for operators/visitors when emitters face forward. Choose eyewear rated for **near-IR attenuation** and ensure a snug fit to block off-axis light.
-
-**Note:** 
-
-For high-precision CAD/DCC tracking, **multi-view NIR with global-shutter cameras and synchronized strobes** typically outperforms inside-out approaches (e.g., consumer hand-tracking like **Leap Motion** or **ToF** controllers) in **accuracy, drift resistance, and latency**—making it a uniquely capable solution compared with devices such as the **Meta Quest 3** and similar systems.
 
 
 ### Disclaimer
