@@ -22,18 +22,23 @@
 
 ---
 
-## System Overview
+## System Overview (Example 4 Stereokamera)
 
 ```
-PC (Host; LAN) ──► Pi 5 (motion host) ──► UART ──► TDMStrobe (RP2040 / Pico) as Master
-                                         │
-                                         ├─► TRIG A/B (2‑wire) ─► Stereo #1 (L+R) as Slave
-                                         ├─► TRIG A/B          ─► Stereo #2 (L+R) as Slave
-                                         ├─► TRIG A/B          ─► Stereo #3 (L+R) as Slave
-                                         └─► TRIG A/B          ─► Stereo #4 (L+R) as Slave
+PC (Host) ── Ethernet/RJ45 ─► EdgeTrack1 ──► UART ──► TDMStrobe1 (RP2040) as Master
+PC (Host) ── Ethernet/RJ45 ─► EdgeTrack2 ──► UART ──► TDMStrobe2 (RP2040) as Slave
+PC (Host) ── Ethernet/RJ45 ─► EdgeTrack3 ──► UART ──► TDMStrobe3 (RP2040) as Slave
+PC (Host) ── Ethernet/RJ45 ─► EdgeTrack4 ──► UART ──► TDMStrobe4 (RP2040) as Slave
 
-TDMStrobe ─► LED Drivers (per string) ─► IR LED strings (Throw / Fill per camera)
-                                 └─► **Dimmer** (global + per‑channel)
+           TDMStrobe1     TDMStrobe2     TDMStrobe3     TDMStrobe4
+               ↓              ↓               ↓             ↓
+             UART           UART             UART          UART
+               ↓              ↓               ↓             ↓
+            SP3485         SP3485           SP3485        SP3485
+               ↓              ↓               ↓             ↓
+             RS485          RS485           RS485         RS485  
+               ↓              ↓               ↓             ↓
+12ΩΩ   ↔    2xRJ45   ↔     2xRJ45    ↔    2xRJ45    ↔    2xRJ45    ↔    120Ω
 ```
 
 * **Up to 4 stereo rigs** (expandable hub style). With 3 or more rigs, up to **8 trigger ports** are available from a “Master” stereo pair fan‑out.
