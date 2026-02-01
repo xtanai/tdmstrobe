@@ -1,14 +1,16 @@
 # TDMStrobe
 
-**Time-Division-Multiplexed (TDM) IR strobe & trigger hub** for multi-camera hand/gesture capture. Designed for **2–4 stereo rigs** (i.e., **4–8 mono cams**) with small, staggered baselines to improve **precision** and **occlusion robustness**.
+**Time-Division-Multiplexed (TDM) NIR strobe & trigger hub** for multi-camera hand/gesture capture. Designed for **2–4 stereo rigs** (i.e., **4–8 mono cameras**) with small, staggered baselines to improve **precision** and **occlusion robustness**.
 
-* **Per-frame strobing:** supports **single-strobe** and **double-strobe** (e.g., **Throw 60°** + **Fill 90°**).
-* **Optics:** prototype uses **120° emitters** for fast bring-up; production targets **60°/90°**.
-* **Spectrum:** **850 nm** IR illumination (invisible) and **camera-safe** when operated within established eye-safety limits.
+* **Per-frame strobing:** supports **single-strobe** and **dual-strobe** patterns (e.g., **Throw 60°** + **Fill 90°**).
+* **Optics:** the prototype uses **120° emitters** for fast bring-up; production targets **60° / 90°** for higher efficiency.
+* **Spectrum:** default **850 nm** NIR illumination. **850 nm and 940 nm are both IR-A and not inherently eye-safe**—safe operation depends on irradiance, duty cycle, distance, and exposure time (see **Safety** below).
 
-> **Note:** Suitable off-the-shelf strobe hubs with the required MCU timing/control **do not exist**; this must be **custom-built**.
+> **Note:** Off-the-shelf strobe hubs with the required deterministic MCU timing/control are not available; this module is **custom-built**.
 
-> **Status:** early prototype (electronics/firmware WIP). API and connectors may change.
+> **Safety:** Never look into emitters. Both **850 nm** and **940 nm** can be hazardous at sufficient intensity. **940 nm may reduce visible glow**, but it is **not automatically safer**. See the **Safety** section below.
+
+> **Status:** Early prototype (electronics/firmware WIP). Interfaces, API, and connectors may change.
 
 ---
 
