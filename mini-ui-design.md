@@ -20,9 +20,8 @@ Scope: **single node**, **local UART**, quick parameter changes, start/stop, and
 
 ## Recommended Implementation
 
-### Option A (recommended): Terminal UI (TUI)
 - Python 3 + `pyserial`
-- UI framework: `textual` (or `rich` + custom loop)
+- UI framework: `textual`
 
 Why:
 - runs everywhere on Pi5
