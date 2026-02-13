@@ -1,89 +1,111 @@
 # UI Design (Edge Node) — Mini UART Control Panel (Prototype)
 
-This document defines a minimal, practical UI for controlling an RP2040 over UART
-directly on a Raspberry Pi 5 edge node.  
-Scope: **single node**, **local UART**, quick parameter changes, start/stop, and live status.
+This document describes a minimal and practical UI for controlling an RP2040 over UART
+directly from a Raspberry Pi 5 edge node.
 
-> Not in scope: CoreFusion UI, multi-node routing/tunnels, remote Ethernet control.
+Scope:
+- **Single edge node**
+- **Local UART connection**
+- Quick parameter editing, start/stop control, and live status monitoring
+
+> Out of scope: multi-node control, CoreFusion UI, network routing/tunneling, or remote Ethernet management.
 
 ---
 
 ## Goals
 
-- Fast local bring-up on Pi5 (prototype mode)
-- Safe operation: explicit ARM/RUN/STOP
-- Deterministic timing remains on RP2040 (UI only configures + reads status)
-- Simple debugging: show TX/RX frames, CRC errors, warnings
+- Fast local bring-up on Pi5 (prototype workflow)
+- Safe operation with explicit ARM / RUN / STOP states
+- Deterministic timing remains inside RP2040 (UI only configures and reads status)
+- Simple debugging (TX/RX frames, CRC errors, warnings)
 - Works headless via SSH (terminal UI) or locally in a terminal window
 
 ---
 
 ## Recommended Implementation
 
-- Python 3 + `pyserial`
+- Python 3
+- `pyserial`
 - UI framework: `textual`
 
 Why:
-- runs everywhere on Pi5
-- works over SSH
-- minimal dependencies
-- easy to package as a single CLI app
+
+- Runs everywhere on Raspberry Pi 5
+- Works over SSH
+- Minimal dependencies
+- Easy to package as a single CLI application
 
 Binary name suggestion:
+
 - `edgetrack-uart-ui`
 
 ---
 
 ## UI Layout (Single Screen)
 
-### Top Bar (Connection + Safety)
+### Top Bar — Connection & Safety
+
 - **Serial Port**: dropdown (`/dev/ttyAMA0`, `/dev/serial0`, `/dev/ttyACM0`, etc.)
 - **Baudrate**: dropdown (e.g. 115200, 230400, 460800, 921600)
 - **Connect / Disconnect** button
 - **CRC Status**: `OK` / `ERR` (live)
-- **Link**: `RX rate`, `TX rate` (frames/s)
-- **E-STOP** (big): immediately sends `STOP` + sets `ena=LOW` (if supported)
+- **Link Stats**: `RX rate`, `TX rate` (frames/s)
+- **E-STOP** (large button): immediately sends `STOP` and sets `ena=LOW` (if supported)
 
-### Left Panel (Parameters)
-Grouped inputs with “dirty state” (highlight when modified but not applied):
+---
 
-**Timing / Sync**
+### Left Panel — Parameters
+
+Grouped inputs with a **dirty state** (highlighted when modified but not yet applied).
+
+#### Timing / Sync
+
 - `timing_source`: `internal | sensor`
 - `fps_request`: numeric input
 - `apply_mode`: `immediate | next_frame`
 
-**Exposure / Strobe**
+#### Exposure / Strobe
+
 - `strobe_ref`: `XVS | FSTROBE`
 - `strobe_offset_us`: numeric input (+/-)
 - `strobe_width_us`: numeric input
 - `exposure_us`: numeric input
-- `dimmer_pct`: slider 0..100
+- `dimmer_pct`: slider (0..100)
 
-**Settle / Feedback**
-- `settle_count`: numeric input 0..10
+#### Settle / Feedback
+
+- `settle_count`: numeric input (0..10)
 - `settle_mode`: `frames | time`
 - `settle_time_ms`: numeric input
 
-Controls:
+#### Parameter Controls
+
 - **Send SET** (does not start running)
-- **APPLY** (immediate / next_frame according to selection)
-- **Save Preset** (writes local JSON/YAML)
-- **Load Preset** (reads local JSON/YAML)
+- **APPLY** (uses selected apply mode)
+- **Save Preset** (store local JSON/YAML)
+- **Load Preset** (restore local JSON/YAML)
 
-### Center Panel (Run Control)
-Large, explicit state machine actions:
+---
 
-- **ARM** (sets `ena=HIGH`, sends `ARM` command)
+### Center Panel — Run Control
+
+Clear and explicit state-machine actions:
+
+- **ARM** (sets `ena=HIGH`, sends ARM command)
 - **RUN** (starts timing loop on RP2040)
-- **STOP** (halts timing loop, keeps link alive)
-- **DISARM** (sets `ena=LOW`, safe idle)
+- **STOP** (halts timing loop but keeps UART link alive)
+- **DISARM** (sets `ena=LOW`, safe idle state)
 
 Optional:
+
 - **Single Shot** (one frame trigger, if supported)
 - **Query Status** (manual REPORT request)
 
-### Right Panel (Live Status / Telemetry)
-Updated continuously (e.g. 10–20 Hz, or on REPORT):
+---
+
+### Right Panel — Live Status / Telemetry
+
+Updated continuously (e.g. 10–20 Hz or per REPORT):
 
 - `state`: BOOT / IDLE / ARMED / RUN / FAULT
 - `fps_actual`
@@ -91,59 +113,68 @@ Updated continuously (e.g. 10–20 Hz, or on REPORT):
 - `status_ok`
 - `warn_flags` (decoded + raw hex)
 - `error_code` (decoded + raw)
-- Optional sensor lines:
-  - `xvs_out_hz`
-  - `fstrobe_in_hz`
-  - `timing_source_active`
-  - `strobe_ref_active`
 
-### Bottom Panel (Log / Frames)
-Tabbed log view:
+Optional sensor indicators:
+
+- `xvs_out_hz`
+- `fstrobe_in_hz`
+- `timing_source_active`
+- `strobe_ref_active`
+
+---
+
+### Bottom Panel — Log / Frames
+
+Tabbed logging view:
 
 - **Events**: connect/disconnect, apply, arm/run/stop, faults
-- **UART Frames (decoded)**: cmd_id, seq_id, payload fields
+- **UART Frames (decoded)**: cmd_id, seq_id, parsed payload
 - **Raw HEX**: raw bytes (optional toggle)
-- **Errors**: CRC fails, seq drops, timeouts, malformed frames
+- **Errors**: CRC failures, sequence drops, timeouts, malformed frames
 
 ---
 
 ## UX Rules (Important)
 
 ### Safety-first actions
-- RUN must be a separate button from APPLY.
+
+- RUN must always be separate from APPLY.
 - Any FAULT state should:
-  - stop RUN automatically (optional but recommended)
+  - optionally stop RUN automatically
   - keep UART alive for diagnostics
   - require explicit user action to clear (e.g. `CLEAR_FAULT`)
 
-### “Dirty parameters” concept
-- Editing values should not immediately change hardware.
-- Highlight fields changed but not sent.
-- Only **SET + APPLY** changes the active config.
+### Dirty Parameters
 
-### Live feedback behavior
-- If `settle_count > 0`, after APPLY the UI should:
-  - show “SETTLING…” indicator
-  - collect N samples (frames/time)
-  - display min/avg/max of `frame_period_us` and `fps_actual`
-  - mark “STABLE” when done
+- Editing values must NOT immediately change hardware.
+- Modified fields are visually highlighted.
+- Only **SET + APPLY** updates active configuration.
 
-### Auto-reconnect
-- If UART disconnects:
-  - show “DISCONNECTED”
-  - attempt reconnect every 2 seconds (optional)
-  - do NOT auto-RUN after reconnect (safety)
+### Live Feedback Behavior
+
+If `settle_count > 0`, after APPLY the UI should:
+
+- show a **SETTLING…** indicator
+- collect N REPORT samples (frame- or time-based)
+- display min / avg / max values for:
+  - `frame_period_us`
+  - `fps_actual`
+- mark state as **STABLE** when complete
+
+### Auto-Reconnect
+
+If UART disconnects:
+
+- show **DISCONNECTED**
+- optionally retry every 2 seconds
+- never auto-run after reconnect (safety rule)
 
 ---
 
 ## Presets (Local)
 
-Store presets for reproducible testing:
+Presets allow reproducible testing and fast setup changes.
 
-- Format: JSON or YAML
+- Format: JSON
 - Suggested path:
-  - `~/.config/edgetrack/presets/*.json`
 
-Preset example fields:
-- fps_request, exposure_us, strobe_width_us, strobe_offset_us, dimmer_pct
-- timi
